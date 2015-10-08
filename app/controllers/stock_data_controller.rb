@@ -8,6 +8,10 @@ class StockDataController < ApplicationController
       labels << item.trade_date
       prices << item.close
     end
+
+    #Yahoo returns dates and prices in chronological order.
+    #Need to reverse them to display a chart in the 
+    #standard way
     results = {
       labels: labels.reverse,
       datasets: [
@@ -22,5 +26,12 @@ class StockDataController < ApplicationController
       ]
     }
     render json: results
+  end
+
+  def sym_search
+    #Simple prefix search
+    string = params[:search]
+    @stocks = Stock.all.select {|stock| stock.name.upcase.start_with?(string.upcase) || stock.symbol.upcase.start_with?(string.upcase)}
+    render json: @stocks
   end
 end

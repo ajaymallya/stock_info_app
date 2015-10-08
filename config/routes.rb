@@ -55,5 +55,5 @@ Rails.application.routes.draw do
   #   end
   #
   get 'stock_data', to: 'stock_data#show'
-  get 'sym_search', to: 'stock_data#index'
+  get 'sym_search', to: 'stock_data#sym_search'
 end
